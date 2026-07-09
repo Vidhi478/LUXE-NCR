@@ -1,0 +1,362 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --color-warm-white: #fbfaf6;
+  --color-ivory: #f5f0e8;
+  --color-stone: #e7dfd2;
+  --color-champagne: #c9aa73;
+  --color-charcoal: #1d1c19;
+  --color-deep-black: #080807;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #fbfaf6;
+  color: #1d1c19;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #fbfaf6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #c9aa73;
+  color: #080807;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #080807;
+  color: #f5f0e8;
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 4rem);
+  letter-spacing: 0.18em;
+}
+
+.cursor-follower {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 80;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(201, 170, 115, 0.66);
+  border-radius: 999px;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #9b7a45;
+}
+
+.nav-link {
+  position: relative;
+  padding-bottom: 0.28rem;
+}
+
+.nav-link::after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.magnetic-button {
+  position: relative;
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  overflow: hidden;
+  border: 1px solid rgba(29, 28, 25, 0.24);
+  padding: 0.95rem 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.45s ease, border-color 0.45s ease;
+}
+
+.magnetic-button::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: #c9aa73;
+  transform: translateY(101%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.magnetic-button:hover::before {
+  transform: translateY(0);
+}
+
+.magnetic-button span,
+.magnetic-button svg {
+  position: relative;
+  z-index: 1;
+}
+
+.magnetic-button.dark {
+  background: #1d1c19;
+  color: #fbfaf6;
+}
+
+.magnetic-button.light {
+  background: #fbfaf6;
+  color: #1d1c19;
+}
+
+.magnetic-button.outline {
+  border-color: rgba(255, 255, 255, 0.36);
+  color: #fff;
+}
+
+.image-shell,
+.service-image,
+.destination-card {
+  overflow: hidden;
+}
+
+.property-card {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+  background: #080807;
+}
+
+.property-card .image-shell {
+  height: 100%;
+}
+
+.property-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 1.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.3s ease;
+}
+
+.property-card:hover img {
+  transform: scale(1.06);
+  opacity: 0.82;
+}
+
+.property-overlay {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2rem;
+  color: #fff;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78));
+  transform: translateY(34px);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.property-card:hover .property-overlay {
+  transform: translateY(0);
+}
+
+.property-overlay p,
+.property-overlay span {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.property-overlay h3 {
+  margin: 0.6rem 0 2.2rem;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 0.94;
+}
+
+.service-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.service-image {
+  flex: 1.05;
+  min-height: 420px;
+}
+
+.service-image img {
+  height: 100%;
+  min-height: 420px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.service-copy {
+  display: flex;
+  flex: 0.95;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid rgba(29, 28, 25, 0.2);
+  padding-top: 2rem;
+}
+
+.service-copy h3 {
+  margin-top: 1.5rem;
+  max-width: 760px;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.6vw, 5.7rem);
+  line-height: 0.98;
+  color: #1d1c19;
+}
+
+.destination-card {
+  position: relative;
+  min-height: 560px;
+  background: #111;
+}
+
+.destination-card img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
+}
+
+.destination-card:hover img {
+  transform: scale(1.05);
+  opacity: 0.48;
+}
+
+.destination-card div {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2rem;
+}
+
+.destination-card h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 4.4rem);
+  line-height: 0.95;
+}
+
+.destination-card p {
+  margin-top: 1.4rem;
+  max-width: 26rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+}
+
+.testimonial {
+  border-top: 1px solid rgba(29, 28, 25, 0.18);
+  padding-top: 1.8rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.1vw, 2.2rem);
+  line-height: 1.22;
+  color: #1d1c19;
+}
+
+#locations .eyebrow,
+#locations h2 {
+  color: #f5f0e8;
+}
+
+#locations [data-reveal] p {
+  color: rgba(245, 240, 232, 0.66);
+}
+
+@media (min-width: 1024px) {
+  .service-row {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 4.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .cursor-follower {
+    display: none;
+  }
+
+  .property-card,
+  .destination-card {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 96vh;
+  }
+
+  .property-card,
+  .destination-card {
+    min-height: 440px;
+  }
+
+  .property-overlay,
+  .destination-card div {
+    padding: 1.35rem;
+  }
+
+  .service-image,
+  .service-image img {
+    min-height: 330px;
+  }
+
+  .magnetic-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .cursor-follower {
+    display: none;
+  }
+}
